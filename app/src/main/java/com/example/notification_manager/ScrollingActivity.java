@@ -1,9 +1,11 @@
 package com.example.notification_manager;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -33,6 +35,12 @@ public class ScrollingActivity extends AppCompatActivity {
     private static String string;
     private ActivityScrollingBinding binding;
 
+    private static final String DataBaseName = "DataBaseIt";
+    private static final int DataBaseVersion = 1;
+    private static String DataBaseTable = "Users";
+    private static SQLiteDatabase db;
+    private SqlDataBaseHelper sqlDataBaseHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +60,8 @@ public class ScrollingActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(), NotificationDisplayActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -75,6 +83,9 @@ public class ScrollingActivity extends AppCompatActivity {
                         }}
                     ).show();
         }
+
+        sqlDataBaseHelper = new SqlDataBaseHelper(this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+        db = sqlDataBaseHelper.getWritableDatabase();
     }
 
     @Override
@@ -126,4 +137,38 @@ public class ScrollingActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    public static void insertNotification(String packageName, String title, String text, long timestamp){
+        long id;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("packageName",packageName);
+        contentValues.put("title",title);
+        contentValues.put("text",text);
+        contentValues.put("timestamp",timestamp);
+        id = db.insert(DataBaseTable,null,contentValues);
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

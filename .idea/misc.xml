@@ -6,8 +6,11 @@
         <entry key="..\:/notification-manager/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1" />
         <entry key="..\:/notification-manager/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.1931057563587684" />
         <entry key="..\:/notification-manager/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.1834016393442623" />
+        <entry key="..\:/notification-manager/app/src/main/res/layout/activity_notification_display.xml" value="0.1716485507246377" />
         <entry key="..\:/notification-manager/app/src/main/res/layout/activity_scrolling.xml" value="0.1388888888888889" />
         <entry key="..\:/notification-manager/app/src/main/res/layout/content_scrolling.xml" value="0.24320652173913043" />
+        <entry key="..\:/notification-manager/app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="..\:/notification-manager/app/src/main/res/layout/wordlist_item.xml" value="0.1" />
       </map>
     </option>
   </component>

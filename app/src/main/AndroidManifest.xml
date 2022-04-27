@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Notificationmanager">
         <activity
+            android:name=".NotificationDisplayActivity"
+            android:exported="false"
+            android:label="@string/title_activity_notification_display"
+            android:theme="@style/Theme.Notificationmanager.NoActionBar" />
+        <activity
             android:name=".ScrollingActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -21,15 +26,15 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".NotificationMangerService"
+        <service
+            android:name=".NotificationMangerService"
+            android:exported="false"
             android:label="@string/app_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:exported="false">
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>

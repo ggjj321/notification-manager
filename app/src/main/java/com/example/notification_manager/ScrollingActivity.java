@@ -146,7 +146,6 @@ public class ScrollingActivity extends AppCompatActivity {
         contentValues.put("text",text);
         contentValues.put("timestamp",timestamp);
         id = db.insert(DataBaseTable,null,contentValues);
-
     }
 }
 

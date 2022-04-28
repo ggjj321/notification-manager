@@ -15,33 +15,41 @@ import java.util.LinkedList;
 public class WordListAdapter extends
         RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
 
-    private final LinkedList<String> mWordList;
+    private final LinkedList<String> packageNameList;
+    private final LinkedList<String> titleList;
+    private final LinkedList<String> textList;
     private final LayoutInflater mInflater;
 
     class WordViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
-        public final TextView wordItemView;
+        public final TextView packageNameView;
+        public final TextView titleView;
+        public final TextView textView;
         final WordListAdapter mAdapter;
 
         public WordViewHolder(View itemView, WordListAdapter adapter) {
             super(itemView);
-            wordItemView = itemView.findViewById(R.id.word);
+            packageNameView = itemView.findViewById(R.id.packageName);
+            titleView = itemView.findViewById(R.id.title);
+            textView = itemView.findViewById(R.id.text);
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            int mPosition = getLayoutPosition();
-            String element = mWordList.get(mPosition);
-            mWordList.set(mPosition, "Clicked! " + element);
-            mAdapter.notifyDataSetChanged();
+//            int mPosition = getLayoutPosition();
+//            String element = mWordList.get(mPosition);
+//            mWordList.set(mPosition, "Clicked! " + element);
+//            mAdapter.notifyDataSetChanged();
         }
     }
 
-    public WordListAdapter(Context context, LinkedList<String> wordList) {
+    public WordListAdapter(Context context, LinkedList<String> packageNameList, LinkedList<String> titleList, LinkedList<String> textList) {
         mInflater = LayoutInflater.from(context);
-        this.mWordList = wordList;
+        this.packageNameList = packageNameList;
+        this.titleList = titleList;
+        this.textList = textList;
     }
 
     @Override
@@ -57,14 +65,18 @@ public class WordListAdapter extends
     @Override
     public void onBindViewHolder(WordListAdapter.WordViewHolder holder,
                                  int position) {
-        // Retrieve the data for that position.
-        String mCurrent = mWordList.get(position);
-        // Add the data to the view holder.
-        holder.wordItemView.setText(mCurrent);
+        String packageNameCurrent = packageNameList.get(position);
+        holder.packageNameView.setText(packageNameCurrent);
+
+        String titleCurrent = titleList.get(position);
+        holder.titleView.setText(titleCurrent);
+
+        String textCurrent = textList.get(position);
+        holder.textView.setText(textCurrent);
     }
 
     @Override
     public int getItemCount() {
-        return mWordList.size();
+        return packageNameList.size();
     }
 }

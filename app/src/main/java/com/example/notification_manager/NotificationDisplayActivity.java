@@ -1,5 +1,7 @@
 package com.example.notification_manager;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -23,9 +25,17 @@ public class NotificationDisplayActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityNotificationDisplayBinding binding;
-    private final LinkedList<String> mWordList = new LinkedList<>();
+    private final LinkedList<String> packageNameList = new LinkedList<>();
+    private final LinkedList<String> titleList = new LinkedList<>();
+    private final LinkedList<String> textList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
+
+    private static final String DataBaseName = "DataBaseIt";
+    private static final int DataBaseVersion = 1;
+    private static String DataBaseTable = "Users";
+    private static SQLiteDatabase db;
+    private SqlDataBaseHelper sqlDataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +57,21 @@ public class NotificationDisplayActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        for (int i = 0; i < 20; i++) {
-            mWordList.addLast("Word " + i);
+
+        sqlDataBaseHelper = new SqlDataBaseHelper(this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+        db = sqlDataBaseHelper.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + DataBaseTable,null);
+        c.moveToFirst();
+
+        for(int i=0;i<c.getCount();i++){
+            packageNameList.addLast(c.getString(1));
+            titleList.addLast(c.getString(2));
+            textList.addLast(c.getString(3));
+            c.moveToNext();
         }
 
         mRecyclerView = findViewById(R.id.recyclerView);
-        mAdapter = new WordListAdapter(this, mWordList);
+        mAdapter = new WordListAdapter(this, packageNameList, titleList, textList);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
